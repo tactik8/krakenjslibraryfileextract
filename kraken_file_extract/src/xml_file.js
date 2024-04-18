@@ -1,3 +1,17 @@
+/**
+ *
+ * 
+ */
+
+let instrument = {
+    "@type": "SoftwareSourceCode", 
+    "@id": "https://github.com/tactik8/krakenjslibraryfileextract/process_csv_file",
+    "name": "process_csv_file",
+    "codeRepository" : "https://github.com/tactik8/krakenjslibraryfileextract"
+}
+
+import { fileHelpers } from './file_helpers.js';
+
 
 export function process_xml_file(file, callback) {
 
@@ -11,17 +25,8 @@ export function process_xml_file(file, callback) {
         var content = event.target.result;
         const records = xmlTojson(content);
 
-        var record = {
-            "@type": "digitalDocument",
-            "@id": String(crypto.randomUUID()),
-            name: file.name,
-            dateMOdified: file.LastModified,
-            size: {"@type": "quantitativeValue", value: file.size, unitText: "Byte", unitCode: "B"},
-            type: file.type,
-            hasPart: records
-        };
-      
-        callback(record);
+        var action = fileHelpers.getAction(file, instrument, results)
+        callback(action);
         
     };
 

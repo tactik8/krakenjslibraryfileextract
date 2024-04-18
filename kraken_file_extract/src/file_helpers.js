@@ -7,13 +7,28 @@
 
 export const fileHelpers = {
 
-    getRecord: getRecordFromFile,
-    getAction: getActionFromFile
+    getRecord: getDocumentRecordFromFile,
+    getRecordFromUrl: getDocumentRecordFromUrl,
+    getAction: getActionFromFile,
+    getError: getActionError
     
 }
 
 
-function getRecordFromFile(file){
+function getDocumentRecordFromUrl(fileUrl){
+
+    var record = {
+        "@type": "digitalDocument",
+        "@id": String(crypto.randomUUID()),
+        name: fileUrl.split('/').pop(),
+        url: fileUrl
+    };
+    return record
+}
+
+
+
+function getDocumentRecordFromFile(file){
 
     var record = {
         "@type": "digitalDocument",
@@ -35,7 +50,7 @@ function getActionFromFile(file, instrument, result){
         timeStart: new Date(),
         timeEnd: new Date(),
         actionStatus: 'completedActionStatus',
-        object: getRecordFromFile(file),
+        object: getDocumentRecordFromFile(file),
         instrument: instrument,
         result: result
     };
@@ -44,6 +59,23 @@ function getActionFromFile(file, instrument, result){
     
 }
 
+function getActionError(object, instrument, errorMessage){
+
+    var record = {
+        "@type": "action",
+        "@id": String(crypto.randomUUID()),
+        name: `Extract data from ${object?.name}`,
+        timeStart: new Date(),
+        timeEnd: new Date(),
+        actionStatus: 'failedActionStatus',
+        object: object,
+        instrument: instrument,
+        error: errorMessage
+    };
+    return record
+
+
+}
 
 function getInstrument(file, instrument, result){
 

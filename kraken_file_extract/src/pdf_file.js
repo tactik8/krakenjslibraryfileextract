@@ -1,19 +1,27 @@
+/**
+ *
+ * 
+ */
+
+let instrument = {
+    "@type": "SoftwareSourceCode", 
+    "@id": "https://github.com/tactik8/krakenjslibraryfileextract/process_pdf_file",
+    "name": "process_pdf_file",
+    "codeRepository" : "https://github.com/tactik8/krakenjslibraryfileextract"
+}
+
+import { fileHelpers } from './file_helpers.js';
+
+
 
 export function process_pdf_file(file, callback) {
     console.log("pdf");
     extractPDFTextFromFile(file).then((records) => {
-        console.log("pdf", records);
-        var record = {
-            "@type": "digitalDocument",
-            "@id": String(crypto.randomUUID()),
-            name: file.name,
-            dateMOdified: file.LastModified,
-            size: {"@type": "quantitativeValue", value: file.size, unitText: "Byte", unitCode: "B"},
-            type: file.type,
-            hasPart: records
-        };
 
-        callback(record);
+        
+        var action = fileHelpers.getAction(file, instrument, results)
+        callback(action);
+        
     });
 }
 

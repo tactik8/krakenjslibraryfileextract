@@ -1,16 +1,30 @@
+/**
+ *
+ * 
+ */
 
+let instrument = {
+    "@type": "SoftwareSourceCode", 
+    "@id": "https://github.com/tactik8/krakenjslibraryfileextract/process_csv_file",
+    "name": "process_csv_file",
+    "codeRepository" : "https://github.com/tactik8/krakenjslibraryfileextract"
+}
 
 import { fileHelpers } from './file_helpers.js';
-
 import Papa from 'https://cdn.jsdelivr.net/npm/papaparse@5.4.1/+esm'
+
 
 export function process_csv_file(file, callback) {
 
-
-    let instrument = {"@type": "SoftwareSourceCode", "@id": }
-       
+    _process_csv_file(file, callback)
 
     
+}
+
+
+function _process_csv_file(file, callback) {
+
+   
     let config = {
         quoteChar: '"',
         dynamicTyping: true,
@@ -18,9 +32,9 @@ export function process_csv_file(file, callback) {
         encoding: "UTF-8",
         complete: function(results) {
 
-            var action = fileHelpers.getAction(file)
+            var action = fileHelpers.getAction(file, instrument, results.data)
+            callback(action);
             
-            callback(record);
         },
     };
 
