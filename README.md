@@ -5,7 +5,7 @@ Library to extract raw data from a url or input file.
 ## How to use
 
 ```
-import { krakenFileExtract } from 'https://cdn.jsdelivr.net/gh/tactik8/krakenjslibraryfileextract@main/kraken_file_extract/kraken_file_extract.js';
+import { krakenFileExtract } from 'https://tactik8.github.io/krakenjslibraryfileextract/kraken_file_extract/kraken_file_extract.js';
 
 let url = 'https://....'
 
